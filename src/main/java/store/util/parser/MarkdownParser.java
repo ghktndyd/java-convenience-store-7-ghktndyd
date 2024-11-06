@@ -16,7 +16,6 @@ public abstract class MarkdownParser<T> implements Parser<T> {
     public MarkdownParser(String filePath, String fileHeader) {
         this.filePath = filePath;
         this.fileHeader = fileHeader;
-        validateHeader(fileHeader);
     }
 
     @Override
@@ -32,19 +31,41 @@ public abstract class MarkdownParser<T> implements Parser<T> {
         return items;
     }
 
+    public List<T> parse(BufferedReader reader) {
+        List<T> items = new ArrayList<>();
+        try {
+            parseFile(reader, items);
+        } catch (IOException e) {
+            throw new CustomException(ExceptionMessage.NONE_EXISTENT_FILE);
+        }
+        return items;
+    }
+
+    private void parseFile(BufferedReader reader, List<T> items) throws IOException {
+        String headerLine = reader.readLine();
+
+        validateEmptyFile(headerLine);
+        validateHeader(headerLine);
+
+        parseLines(reader, items);
+    }
+
     private void validateHeader(String header) {
         if (!fileHeader.equals(header)) {
             throw new CustomException(ExceptionMessage.INVALID_HEADER);
         }
     }
 
-    private void parseFile(BufferedReader reader, List<T> items) throws IOException {
-        parseLines(reader, items);
+    private void validateEmptyFile(String headerLine) {
+        if (headerLine == null || headerLine.isBlank()) {
+            throw new CustomException(ExceptionMessage.EMPTY_FILE);
+        }
     }
 
     private void parseLines(BufferedReader reader, List<T> items) throws IOException {
-        while (reader.readLine() != null) {
-            items.add(parseLine(reader.readLine()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            items.add(parseLine(line));
         }
     }
 
