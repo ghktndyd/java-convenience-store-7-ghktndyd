@@ -1,6 +1,8 @@
 package store.promotion.domain;
 
 import java.util.List;
+import store.exception.CustomException;
+import store.exception.ExceptionMessage;
 
 public class Promotions {
 
@@ -10,7 +12,10 @@ public class Promotions {
         this.promotions = promotions;
     }
 
-    public Promotion findByPromotionName(String column) {
-        return null;
+    public Promotion findByPromotionName(String promotionName) {
+        return promotions.stream()
+                .filter(promotion -> promotion.getName().equals(promotionName))
+                .findFirst()
+                .orElseThrow(() -> new CustomException(ExceptionMessage.INVALID_INPUT));
     }
 }
