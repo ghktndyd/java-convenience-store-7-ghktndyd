@@ -1,10 +1,7 @@
 package store.util.parser;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import store.config.FilePath;
-import store.exception.CustomException;
-import store.exception.ExceptionMessage;
 import store.promotion.domain.Promotion;
 
 public class MarkdownPromotionParser extends MarkdownParser<Promotion> {
@@ -26,21 +23,5 @@ public class MarkdownPromotionParser extends MarkdownParser<Promotion> {
         LocalDate endDate = validateDate(columns[4]);
 
         return new Promotion(name, buyQuantity, freeQuantity, startDate, endDate);
-    }
-
-    private int validateNumber(String number) {
-        try {
-            return Integer.parseInt(number);
-        } catch (NumberFormatException e) {
-            throw new CustomException(ExceptionMessage.INVALID_NUMBER_FORMAT);
-        }
-    }
-
-    private LocalDate validateDate(String rawDate) {
-        try {
-            return LocalDate.parse(rawDate);
-        } catch (DateTimeParseException e) {
-            throw new CustomException(ExceptionMessage.INVALID_DATE_FORMAT);
-        }
     }
 }

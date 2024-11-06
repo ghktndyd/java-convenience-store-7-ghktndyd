@@ -3,6 +3,8 @@ package store.util.parser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import store.exception.CustomException;
@@ -70,4 +72,20 @@ public abstract class MarkdownParser<T> implements Parser<T> {
     }
 
     protected abstract T parseLine(String line);
+
+    int validateNumber(String number) {
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            throw new CustomException(ExceptionMessage.INVALID_NUMBER_FORMAT);
+        }
+    }
+
+    LocalDate validateDate(String rawDate) {
+        try {
+            return LocalDate.parse(rawDate);
+        } catch (DateTimeParseException e) {
+            throw new CustomException(ExceptionMessage.INVALID_DATE_FORMAT);
+        }
+    }
 }
