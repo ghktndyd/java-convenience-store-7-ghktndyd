@@ -9,4 +9,8 @@ public class Promotions {
     public Promotions(List<Promotion> promotions) {
         this.promotions = promotions;
     }
+
+    public Promotion findByPromotionName(String column) {
+        return null;
+    }
 }
