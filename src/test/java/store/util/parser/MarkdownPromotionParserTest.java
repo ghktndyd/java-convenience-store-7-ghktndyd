@@ -3,6 +3,7 @@ package store.util.parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import store.config.FilePath;
 import store.exception.CustomException;
 import store.exception.ExceptionMessage;
 import store.promotion.domain.Promotion;
@@ -20,7 +21,7 @@ class MarkdownPromotionParserTest {
 
     @BeforeEach
     void setUp() {
-        parser = new MarkdownPromotionParser("src/test/resources/promotions.md");
+        parser = new MarkdownPromotionParser(FilePath.PROMOTIONS_FILE);
     }
 
     @DisplayName("모든 값이 정상이라면 promotions.md 파일이 정상적으로 파싱된다.")

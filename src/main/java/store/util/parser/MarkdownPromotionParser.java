@@ -2,6 +2,7 @@ package store.util.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import store.config.FilePath;
 import store.exception.CustomException;
 import store.exception.ExceptionMessage;
 import store.promotion.domain.Promotion;
@@ -11,8 +12,8 @@ public class MarkdownPromotionParser extends MarkdownParser<Promotion> {
     private static final String HEADER = "name,buy,get,start_date,end_date";
     private static final String SEPARATOR = ",";
 
-    public MarkdownPromotionParser(String filePath) {
-        super(filePath, HEADER);
+    public MarkdownPromotionParser(FilePath filePath) {
+        super(filePath.getFilePath(), HEADER);
     }
 
     @Override
