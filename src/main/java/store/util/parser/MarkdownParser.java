@@ -16,6 +16,7 @@ public abstract class MarkdownParser<T> implements Parser<T> {
     public MarkdownParser(String filePath, String fileHeader) {
         this.filePath = filePath;
         this.fileHeader = fileHeader;
+        validateHeader(fileHeader);
     }
 
     @Override
@@ -29,6 +30,12 @@ public abstract class MarkdownParser<T> implements Parser<T> {
         }
 
         return items;
+    }
+
+    private void validateHeader(String header) {
+        if (!fileHeader.equals(header)) {
+            throw new CustomException(ExceptionMessage.INVALID_HEADER);
+        }
     }
 
     private void parseFile(BufferedReader reader, List<T> items) throws IOException {

@@ -8,6 +8,7 @@ public enum ExceptionMessage {
     INVALID_INPUT("잘못된 입력입니다. 다시 입력해 주세요."),
 
     NONE_EXISTENT_FILE("파일을 읽을 수 없습니다."),
+    INVALID_HEADER("파일 헤더가 올바르지 않습니다. 헤더 형식을 확인해 주세요."),
     ;
 
     private final String message;
