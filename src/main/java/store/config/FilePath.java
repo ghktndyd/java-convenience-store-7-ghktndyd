@@ -2,8 +2,8 @@ package store.config;
 
 public enum FilePath {
 
-    PROMOTIONS_FILE("src/test/resources/promotions.md"),
-    ;
+    PROMOTIONS_FILE("src/main/resources/promotions.md"),
+    PRODUCTS_FILE("src/main/resources/products.md");
 
     private final String filePath;
 
