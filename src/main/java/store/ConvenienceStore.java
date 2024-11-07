@@ -1,7 +1,6 @@
 package store;
 
 import java.util.List;
-import java.util.Map;
 import store.config.FilePath;
 import store.product.domain.Product;
 import store.product.repository.ProductRepository;
@@ -31,6 +30,7 @@ public class ConvenienceStore {
     }
 
     public void run() {
+        outputView.printWelcomeMessage();
     }
 
     private List<Promotion> initializePromotions() {
