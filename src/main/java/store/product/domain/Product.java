@@ -33,14 +33,8 @@ public class Product {
         return promotion;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", promotion=" + promotion +
-                '}';
+    public String getPromotionName() {
+        return promotion.getName();
     }
 
     @Override

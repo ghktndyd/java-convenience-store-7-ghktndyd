@@ -40,7 +40,7 @@ public class OutputView {
 
     private String getPromotionInfo(Product product) {
         if (product.getPromotion() != null) {
-            return " " + product.getPromotion().getName();
+            return " " + product.getPromotionName();
         }
         return "";
     }
