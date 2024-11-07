@@ -24,23 +24,24 @@ public class ConvenienceStore {
     }
 
     public void initialize() {
-        this.promotions = new Promotions(initializePromotions());
-        this.productRepository = new ProductRepository();
-        initializeProducts();
+        this.promotions = new Promotions(readPromotions());
+        this.productRepository = new ProductRepository(readProducts());
     }
 
     public void run() {
         outputView.printWelcomeMessage();
+        productRepository.findAll()
+                .stream()
+                .forEach(System.out::println);
     }
 
-    private List<Promotion> initializePromotions() {
+    private List<Promotion> readPromotions() {
         MarkdownPromotionParser markdownPromotionParser = new MarkdownPromotionParser(FilePath.PROMOTIONS_FILE);
         return markdownPromotionParser.parse();
     }
 
-    private void initializeProducts() {
+    private List<Product> readProducts() {
         MarkdownProductParser markdownProductParser = new MarkdownProductParser(FilePath.PRODUCTS_FILE, promotions);
-        List<Product> parse = markdownProductParser.parse();
-        parse.forEach(productRepository::addProduct);
+        return markdownProductParser.parse();
     }
 }

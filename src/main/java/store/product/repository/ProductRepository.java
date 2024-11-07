@@ -1,18 +1,18 @@
 package store.product.repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import store.product.domain.Product;
 
 public class ProductRepository {
 
-    private final Map<String, Product> products = new HashMap<>();
+    private final List<Product> products;
 
-    public void addProduct(Product product) {
-        products.put(product.getName(), product);
+    public ProductRepository(List<Product> products) {
+        this.products = products;
     }
 
-    public Product findByName(String name) {
-        return products.get(name);
+    public List<Product> findAll() {
+        return new ArrayList<>(products);
     }
 }
