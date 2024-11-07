@@ -21,6 +21,28 @@ public class Product {
         return name;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", promotion=" + promotion +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

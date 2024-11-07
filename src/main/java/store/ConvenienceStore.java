@@ -30,9 +30,7 @@ public class ConvenienceStore {
 
     public void run() {
         outputView.printWelcomeMessage();
-        productRepository.findAll()
-                .stream()
-                .forEach(System.out::println);
+        outputView.printProducts(productRepository);
     }
 
     private List<Promotion> readPromotions() {
