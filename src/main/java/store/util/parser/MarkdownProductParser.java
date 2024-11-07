@@ -1,5 +1,6 @@
 package store.util.parser;
 
+import store.config.FilePath;
 import store.product.domain.Product;
 import store.promotion.domain.Promotion;
 import store.promotion.domain.Promotions;
@@ -11,8 +12,8 @@ public class MarkdownProductParser extends MarkdownParser<Product> {
 
     private final Promotions promotions;
 
-    public MarkdownProductParser(String filePath, Promotions promotions) {
-        super(filePath, HEADER);
+    public MarkdownProductParser(FilePath filePath, Promotions promotions) {
+        super(filePath.getFilePath(), HEADER);
         this.promotions = promotions;
     }
 

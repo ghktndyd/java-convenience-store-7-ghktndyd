@@ -13,6 +13,10 @@ public class Promotions {
     }
 
     public Promotion findByPromotionName(String promotionName) {
+        if ("null".equals(promotionName)) {
+            return null;
+        }
+
         return promotions.stream()
                 .filter(promotion -> promotion.getName().equals(promotionName))
                 .findFirst()
