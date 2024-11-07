@@ -31,6 +31,8 @@ public class ConvenienceStore {
     public void run() {
         outputView.printWelcomeMessage();
         outputView.printProducts(productRepository);
+
+        inputView.requestOrders();
     }
 
     private List<Promotion> readPromotions() {
