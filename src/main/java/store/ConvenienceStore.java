@@ -32,15 +32,17 @@ public class ConvenienceStore {
     }
 
     public void run() {
-        outputView.printWelcomeMessage();
-        outputView.printProducts(productRepository);
-
+        printProducts();
         Receipt receipt = getOrderItems();
 
         inputView.askMembershipDiscountApply();
         inputView.askAnotherPurchase();
-
         outputView.printReceipt(receipt);
+    }
+
+    private void printProducts() {
+        outputView.printWelcomeMessage();
+        outputView.printProducts(productRepository);
     }
 
     private Receipt getOrderItems() {
