@@ -7,13 +7,13 @@ public class Product {
 
     private final String name;
     private final int price;
-    private final int quantity;
+    private final Quantity quantity;
     private final Promotion promotion;
 
     public Product(String name, int price, int quantity, Promotion promotion) {
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
+        this.quantity = new Quantity(quantity);
         this.promotion = promotion;
     }
 
@@ -26,7 +26,7 @@ public class Product {
     }
 
     public int getQuantity() {
-        return quantity;
+        return quantity.getValue();
     }
 
     public Promotion getPromotion() {
