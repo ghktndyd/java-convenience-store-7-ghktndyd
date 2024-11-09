@@ -12,6 +12,8 @@ public class InputView {
 
     private static final String NEW_LINE = System.lineSeparator();
     private static final String REQUEST_ORDERS_MESSAGE = NEW_LINE + "구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])";
+    private static final String ASK_MEMBERSHIP_DISCOUNT_APPLY_MESSAGE = "멤버십 할인을 받으시겠습니까? (Y/N)";
+    private static final String ASK_ANOTHER_PURCHASE_MESSAGE = "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
 
     public OrderItems requestOrderItems() {
         System.out.println(REQUEST_ORDERS_MESSAGE);
@@ -21,6 +23,20 @@ public class InputView {
 
         List<OrderItem> orderItems = parseOrderItems(input);
         return new OrderItems(orderItems);
+    }
+
+    public void askMembershipDiscountApply() {
+        System.out.println(ASK_MEMBERSHIP_DISCOUNT_APPLY_MESSAGE);
+        String input = Console.readLine();
+        validateYesOrNo(input);
+        validateBlankInput(input);
+    }
+
+    public void askAnotherPurchase() {
+        System.out.println(ASK_ANOTHER_PURCHASE_MESSAGE);
+        String input = Console.readLine();
+        validateYesOrNo(input);
+        validateBlankInput(input);
     }
 
     private void validateBlankInput(String input) {
@@ -64,6 +80,14 @@ public class InputView {
         } catch (NumberFormatException e) {
             throw new CustomException(ExceptionMessage.INVALID_FORMAT);
         }
+    }
+
+    private void validateYesOrNo(String input) {
+        if ("Y".equalsIgnoreCase(input) || "N".equalsIgnoreCase(input)) {
+            return;
+        }
+
+        throw new CustomException(ExceptionMessage.INVALID_INPUT);
     }
 
     private List<OrderItem> parseOrderItems(String input) {
