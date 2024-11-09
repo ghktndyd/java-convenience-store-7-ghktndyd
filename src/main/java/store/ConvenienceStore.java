@@ -1,12 +1,14 @@
 package store;
 
 import java.util.List;
+import java.util.function.Supplier;
 import store.config.FilePath;
 import store.order.OrderItems;
 import store.product.domain.Product;
 import store.product.repository.ProductRepository;
 import store.promotion.domain.Promotion;
 import store.promotion.domain.Promotions;
+import store.receipt.Receipt;
 import store.util.parser.MarkdownProductParser;
 import store.util.parser.MarkdownPromotionParser;
 import store.view.InputView;
@@ -33,8 +35,19 @@ public class ConvenienceStore {
         outputView.printWelcomeMessage();
         outputView.printProducts(productRepository);
 
-        OrderItems orderItems = inputView.requestOrderItems();
-        productRepository.processOrder(orderItems);
+        Receipt receipt = getOrderItems();
+
+        inputView.askMembershipDiscountApply();
+        inputView.askAnotherPurchase();
+
+        outputView.printReceipt(receipt);
+    }
+
+    private Receipt getOrderItems() {
+        return retry(() -> {
+            OrderItems orderItems = inputView.requestOrderItems();
+            return productRepository.processOrder(orderItems);
+        });
     }
 
     private List<Promotion> readPromotions() {
@@ -45,5 +58,15 @@ public class ConvenienceStore {
     private List<Product> readProducts() {
         MarkdownProductParser markdownProductParser = new MarkdownProductParser(FilePath.PRODUCTS_FILE, promotions);
         return markdownProductParser.parse();
+    }
+
+    private <T> T retry(Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }
