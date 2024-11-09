@@ -2,6 +2,7 @@ package store;
 
 import java.util.List;
 import store.config.FilePath;
+import store.order.OrderItems;
 import store.product.domain.Product;
 import store.product.repository.ProductRepository;
 import store.promotion.domain.Promotion;
@@ -32,7 +33,8 @@ public class ConvenienceStore {
         outputView.printWelcomeMessage();
         outputView.printProducts(productRepository);
 
-        inputView.requestOrders();
+        OrderItems orderItems = inputView.requestOrderItems();
+        productRepository.processOrder(orderItems);
     }
 
     private List<Promotion> readPromotions() {

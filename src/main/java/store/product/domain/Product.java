@@ -7,7 +7,7 @@ public class Product {
 
     private final String name;
     private final int price;
-    private final Quantity quantity;
+    private Quantity quantity;
     private final Promotion promotion;
 
     public Product(String name, int price, int quantity, Promotion promotion) {
@@ -37,6 +37,10 @@ public class Product {
         return promotion.getName();
     }
 
+    public void deductQuantity(int quantity) {
+        this.quantity.subtract(quantity);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -46,8 +50,8 @@ public class Product {
             return false;
         }
         Product product = (Product) o;
-        return price == product.price && quantity == product.quantity && Objects.equals(name, product.name)
-                && Objects.equals(promotion, product.promotion);
+        return price == product.price && Objects.equals(name, product.name) && Objects.equals(quantity,
+                product.quantity) && Objects.equals(promotion, product.promotion);
     }
 
     @Override
