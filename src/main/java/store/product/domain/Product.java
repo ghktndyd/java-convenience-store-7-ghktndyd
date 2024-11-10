@@ -41,6 +41,10 @@ public class Product {
         this.quantity.subtract(quantity);
     }
 
+    public boolean hasPromotions() {
+        return promotion != null && promotion.isActive();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

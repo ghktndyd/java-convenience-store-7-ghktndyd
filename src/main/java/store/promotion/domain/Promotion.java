@@ -23,6 +23,12 @@ public class Promotion {
         return name;
     }
 
+    public boolean isActive() {
+        LocalDate now = LocalDate.now();
+        return (now.isEqual(startDate) || now.isAfter(startDate))
+                && (now.isEqual(endDate) || now.isBefore(endDate));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
