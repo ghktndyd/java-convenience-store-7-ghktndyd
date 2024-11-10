@@ -34,9 +34,7 @@ public class ConvenienceStore {
     public void run() {
         do {
             printProducts();
-            OrderItems orderItems = getOrderItems();
-
-            Receipt receipt = getReceipt(orderItems);
+            Receipt receipt = getReceipt();
 
             boolean isMembership = inputView.askMembershipDiscountApply();
 
@@ -52,15 +50,9 @@ public class ConvenienceStore {
         outputView.printProducts(productRepository);
     }
 
-    private OrderItems getOrderItems() {
+    private Receipt getReceipt() {
         return retry(() -> {
             OrderItems orderItems = inputView.requestOrderItems();
-            return orderItems;
-        });
-    }
-
-    private Receipt getReceipt(OrderItems orderItems) {
-        return retry(() -> {
             return productRepository.processOrder(orderItems);
         });
     }

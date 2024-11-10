@@ -61,16 +61,4 @@ public class ProductRepository {
 
         return new Receipt(receiptItems, freeItems, totalPromotionDiscount);
     }
-
-    private void addReceiptItems(OrderItems orderItems, List<ReceiptItem> receiptItems) {
-        for (OrderItem orderItem : orderItems.getOrderItems()) {
-            String productName = orderItem.getProductName();
-            int orderQuantity = orderItem.getBuyQuantity();
-
-            Product product = findByProductName(productName);
-            product.deductQuantity(orderQuantity);
-
-            receiptItems.add(new ReceiptItem(productName, orderQuantity, product.getPrice()));
-        }
-    }
 }
