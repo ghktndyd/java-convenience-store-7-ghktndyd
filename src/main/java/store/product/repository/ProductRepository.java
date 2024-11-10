@@ -7,7 +7,6 @@ import store.exception.ExceptionMessage;
 import store.order.OrderItem;
 import store.order.OrderItems;
 import store.product.domain.Product;
-import store.promotion.domain.Promotion;
 import store.receipt.Receipt;
 import store.receipt.ReceiptItem;
 
@@ -41,8 +40,7 @@ public class ProductRepository {
             int productPrice = product.getPrice();
 
             if (product.hasPromotions()) {
-                Promotion promotion = product.getPromotion();
-                orderItem.applyPromotion(promotion, applicableStock, productPrice);
+                orderItem.applyPromotion(product.getPromotion(), applicableStock, productPrice);
 
                 int requiredTotalQuantity = orderItem.getTotalQuantity();
 
@@ -54,7 +52,7 @@ public class ProductRepository {
 
                 totalPromotionDiscount += orderItem.getPromotionDiscount();
             } else {
-                product.deductQuantity(orderItem.getFreeQuantity());
+                product.deductQuantity(orderItem.getBuyQuantity());
                 receiptItems.add(new ReceiptItem(product.getName(), orderItem.getBuyQuantity(), productPrice));
             }
         }
