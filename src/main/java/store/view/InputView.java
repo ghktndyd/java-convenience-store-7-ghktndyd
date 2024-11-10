@@ -12,8 +12,10 @@ public class InputView {
 
     private static final String NEW_LINE = System.lineSeparator();
     private static final String REQUEST_ORDERS_MESSAGE = NEW_LINE + "구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])";
-    private static final String ASK_MEMBERSHIP_DISCOUNT_APPLY_MESSAGE = "멤버십 할인을 받으시겠습니까? (Y/N)";
-    private static final String ASK_ANOTHER_PURCHASE_MESSAGE = "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
+    private static final String ASK_MEMBERSHIP_DISCOUNT_APPLY_MESSAGE = NEW_LINE + "멤버십 할인을 받으시겠습니까? (Y/N)";
+    private static final String ASK_ANOTHER_PURCHASE_MESSAGE = NEW_LINE + "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
+    private static final String YES_SIGN = "Y";
+    public static final String NO_SIGN = "N";
 
     public OrderItems requestOrderItems() {
         System.out.println(REQUEST_ORDERS_MESSAGE);
@@ -25,18 +27,22 @@ public class InputView {
         return new OrderItems(orderItems);
     }
 
-    public void askMembershipDiscountApply() {
+    public boolean askMembershipDiscountApply() {
         System.out.println(ASK_MEMBERSHIP_DISCOUNT_APPLY_MESSAGE);
         String input = Console.readLine();
         validateYesOrNo(input);
         validateBlankInput(input);
+
+        return input.equalsIgnoreCase(YES_SIGN);
     }
 
-    public void askAnotherPurchase() {
+    public boolean askAnotherPurchase() {
         System.out.println(ASK_ANOTHER_PURCHASE_MESSAGE);
         String input = Console.readLine();
         validateYesOrNo(input);
         validateBlankInput(input);
+
+        return input.equalsIgnoreCase(YES_SIGN);
     }
 
     private void validateBlankInput(String input) {
@@ -83,7 +89,7 @@ public class InputView {
     }
 
     private void validateYesOrNo(String input) {
-        if ("Y".equalsIgnoreCase(input) || "N".equalsIgnoreCase(input)) {
+        if (YES_SIGN.equalsIgnoreCase(input) || NO_SIGN.equalsIgnoreCase(input)) {
             return;
         }
 

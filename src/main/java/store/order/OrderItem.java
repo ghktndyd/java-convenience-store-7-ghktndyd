@@ -22,6 +22,18 @@ public class OrderItem {
         return buyQuantity;
     }
 
+    public int getFreeQuantity() {
+        return freeQuantity;
+    }
+
+    public int getTotalQuantity() {
+        return buyQuantity + freeQuantity;
+    }
+
+    public int getPromotionDiscount() {
+        return promotionDiscount;
+    }
+
     public void applyPromotion(Promotion promotion, int applicableStock, int productPrice) {
         int promotionApplyCount = buyQuantity / promotion.getBuyQuantity();
 

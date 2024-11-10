@@ -23,6 +23,14 @@ public class Promotion {
         return name;
     }
 
+    public int getBuyQuantity() {
+        return buyQuantity;
+    }
+
+    public int getFreeQuantity() {
+        return freeQuantity;
+    }
+
     public boolean isActive() {
         LocalDate now = LocalDate.now();
         return (now.isEqual(startDate) || now.isAfter(startDate))

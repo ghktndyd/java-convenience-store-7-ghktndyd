@@ -32,12 +32,19 @@ public class ConvenienceStore {
     }
 
     public void run() {
-        printProducts();
-        Receipt receipt = getOrderItems();
+        do {
+            printProducts();
+            OrderItems orderItems = getOrderItems();
 
-        inputView.askMembershipDiscountApply();
-        inputView.askAnotherPurchase();
-        outputView.printReceipt(receipt);
+            Receipt receipt = getReceipt(orderItems);
+
+            boolean isMembership = inputView.askMembershipDiscountApply();
+
+            receipt.applyMembershipDiscount(isMembership);
+
+            outputView.printReceipt(receipt);
+
+        } while (inputView.askAnotherPurchase());
     }
 
     private void printProducts() {
@@ -45,9 +52,15 @@ public class ConvenienceStore {
         outputView.printProducts(productRepository);
     }
 
-    private Receipt getOrderItems() {
+    private OrderItems getOrderItems() {
         return retry(() -> {
             OrderItems orderItems = inputView.requestOrderItems();
+            return orderItems;
+        });
+    }
+
+    private Receipt getReceipt(OrderItems orderItems) {
+        return retry(() -> {
             return productRepository.processOrder(orderItems);
         });
     }
